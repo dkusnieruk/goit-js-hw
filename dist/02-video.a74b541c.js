@@ -537,6 +537,17 @@ var _player = require("@vimeo/player");
 var _playerDefault = parcelHelpers.interopDefault(_player);
 const iframe = document.querySelector(`iframe`);
 const player = new (0, _playerDefault.default)(iframe);
+const time = player.getCurrentTime().then(function(seconds) {
+    console.log(seconds);
+// seconds = the current playback position
+}).catch(function(error) {
+// an error occurred
+});
+player.setCurrentTime(time).then(function(seconds) {
+// seconds = the actual time that the player seeked to
+}).catch(function(error) {
+    error.name;
+});
 
 },{"@vimeo/player":"kmmUG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kmmUG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
