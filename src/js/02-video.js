@@ -1,19 +1,21 @@
 import Player from '@vimeo/player';
+var throttle = require('lodash.throttle');
 
 const iframe = document.querySelector(`iframe`);
 
 const player = new Player(iframe);
 
-const time =player.getCurrentTime().then(function(seconds) {
-    console.log(seconds);
-    // seconds = the current playback position
-}).catch(function(error) {
-    // an error occurred
+player.on('timeupdate', function(data) {
+    // data is an object containing properties specific to that event
+    console.log(data.seconds);
+    localStorage.setItem("videoplayer-current-time", `${data.seconds}`);
+       
 });
 
+const theme = localStorage.getItem("videoplayer-current-time");
+console.log(theme);
 
-
-player.setCurrentTime(time).then(function(seconds) {
+player.setCurrentTime(theme).then(function(seconds) {
     // seconds = the actual time that the player seeked to
 }).catch(function(error) {
     switch (error.name) {
